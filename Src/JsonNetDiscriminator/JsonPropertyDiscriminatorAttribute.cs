@@ -6,7 +6,7 @@ namespace JsonNetDiscriminator
     public class JsonPropertyDiscriminatorAttribute : Attribute
     {
         private string _propertyName;
-        private object _propertyValue;
+        private string _propertyValue;
         private Type _targetType;
 
         public string PropertyName
@@ -14,7 +14,7 @@ namespace JsonNetDiscriminator
             get { return _propertyName; }
         }
 
-        public object PropertyValue
+        public string PropertyValue
         {
             get { return _propertyValue; }
         }
@@ -24,7 +24,7 @@ namespace JsonNetDiscriminator
             get { return _targetType; }
         }
 
-        public JsonPropertyDiscriminatorAttribute(string propertyName, object propertyValue, Type targetType)
+        public JsonPropertyDiscriminatorAttribute(string propertyName, string propertyValue, Type targetType)
         {
             _propertyName = propertyName;
             _propertyValue = propertyValue;

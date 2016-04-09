@@ -78,7 +78,7 @@ namespace JsonNetDiscriminator
                 foreach (var attr in attrs)
                 {
                     prop = jsonObject.Property(attr.PropertyName);
-                    if (prop != null && (string)prop.Value == attr.PropertyValue.ToString())
+                    if (prop != null && (string)prop.Value == attr.PropertyValue)
                         return Activator.CreateInstance(attr.TargetType);
                 }
             }
