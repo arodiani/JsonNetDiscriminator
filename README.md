@@ -1,6 +1,6 @@
 # JsonNetDiscriminator
 
-Lastest Version *0.0.1.356*
+Lastest Version *0.0.1.358*
 
 ### What is JsonNetDiscriminator
 

@@ -74,11 +74,10 @@ namespace JsonNetDiscriminator
             var attrs = objectType.GetCustomAttributes(typeof (JsonPropertyDiscriminatorAttribute), false).OfType<JsonPropertyDiscriminatorAttribute>().ToList();
             if (attrs.Any())
             {
-                JProperty prop = null;
+                JToken value = null;
                 foreach (var attr in attrs)
                 {
-                    prop = jsonObject.Property(attr.PropertyName);
-                    if (prop != null && (string)prop.Value == attr.PropertyValue)
+                    if (jsonObject.TryGetValue(attr.PropertyName, out value) && ((string)value).Equals(attr.PropertyValue))
                         return Activator.CreateInstance(attr.TargetType);
                 }
             }
@@ -87,7 +86,7 @@ namespace JsonNetDiscriminator
 
         public override bool CanConvert(Type objectType)
         {
-            return _types != null ? _types.Where(x => x.IsAssignableFrom(objectType)).Any() : false;
+            return _types != null && _types.Any(x => x.IsAssignableFrom(objectType));
         }
     }
 }
