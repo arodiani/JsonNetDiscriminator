@@ -30,7 +30,7 @@ namespace JsonNetDiscriminator
             :this()
         {
             foreach (var assembly in assemblies)
-                ScanAssembly(assembly);
+                AddTypesFromAssembly(assembly);
         }
 
         public void AddType(Type type)
@@ -43,7 +43,7 @@ namespace JsonNetDiscriminator
             _types.Remove(type);
         }
 
-        public void ScanAssembly(Assembly assembly)
+        public void AddTypesFromAssembly(Assembly assembly)
         {
             _types.AddRange(
                 assembly.GetTypes()
@@ -63,6 +63,9 @@ namespace JsonNetDiscriminator
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            if (reader.TokenType == JsonToken.Null || reader.TokenType == JsonToken.None)
+                return null;
+
             var jsonObject = JObject.Load(reader);
             var target = Create(objectType, jsonObject);
             serializer.Populate(jsonObject.CreateReader(), target);

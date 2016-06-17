@@ -93,7 +93,7 @@ namespace JsonNetDiscriminator.Test
         [Test]
         public void AddType_AddOneTypeScanningTheCurrentTestAssembly()
         {
-            _sut.ScanAssembly(Assembly.GetExecutingAssembly());
+            _sut.AddTypesFromAssembly(Assembly.GetExecutingAssembly());
 
             _sut.Types.Should().HaveCount(2);
         }
